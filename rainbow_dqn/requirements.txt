@@ -1,0 +1,8 @@
+ale_py==0.8.1
+gym==0.26.2
+matplotlib==3.10.3
+numpy==1.23.5
+opencv_python==4.11.0.86
+pandas==2.3.0
+torch==2.7.1
+tqdm==4.67.1

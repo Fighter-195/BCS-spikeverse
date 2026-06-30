@@ -4,12 +4,24 @@
 > Deep Q-Network out of **spiking neurons** (Leaky Integrate-and-Fire) and deploying it on
 > the Atari **Breakout** environment, alongside a conventional ANN baseline for comparison.
 
-This repository bundles two things:
+This repository bundles three things:
 
 1. **`learning_journey/`** — the week-by-week build-up of reinforcement-learning fundamentals
    (tabular Q-learning → GridWorld → replay buffers → DQN), the groundwork for the final project.
-2. **The Atari SNN agent** (project root) — the final "SpikeVerse" assignment: a **Spiking
-   Deep Q-Network (DSQN)** for Breakout, plus the ANN it is converted from.
+2. **`rainbow_dqn/`** — the **convolutional Deep-Q agent that actually masters Breakout**
+   (Double DQN + PER + N-step + Noisy/Dueling). Verified at **290 reward per episode** (ε=0,
+   deterministic), training average **169** / peak **290** — far above the human baseline of 32.
+3. **The FC → SNN agent** (project root) — the neuromorphic side: a fully-connected DQN converted
+   to a **Spiking Neural Network** (LIF neurons, Poisson rate coding). A lighter side-experiment
+   whose converted weights score a mean of ~1.13 (see the honest verification note under *Results*).
+
+> **TL;DR on results:** if you want the **strong Breakout player (≈290)**, use **`rainbow_dqn/`**.
+> The root **SNN** is the energy-efficient spiking conversion experiment (~1.13) — the
+> neuromorphic research angle, not the high-score model. The two are different architectures.
+
+> **Credit:** the `rainbow_dqn/` conv agent is teammate
+> **[@adianandgit](https://github.com/adianandgit/Atari-Breakout-SNNs)**'s work (group project),
+> included under its MIT License.
 
 ---
 
@@ -163,8 +175,16 @@ SNN_Spikeverse/
 ├── plots/                # training & evaluation figures
 ├── sample_frames/        # example binary / greyscale states
 ├── docs/                 # project documentation (PDF)
-└── learning_journey/
-    └── week1_rl_foundations.ipynb   # RL fundamentals notebook
+├── learning_journey/
+│   └── week1_rl_foundations.ipynb   # RL fundamentals notebook
+└── rainbow_dqn/          # ⭐ convolutional DDQN+PER+N-step agent (avg 169 / peak 290)
+    ├── DQN_Architecture.py          # conv backbone (8×8/4×4/3×3 → FC512 → 4)
+    ├── Agent_Implementation.py      # Double-DQN agent, ε-greedy, PER, N-step
+    ├── PER.py / NOISY_Dueling_DQN.py / training_function.py
+    ├── Atari_Environment.py         # 84×84 stacked-frame Atari wrapper (gymnasium)
+    ├── model_weights.pth            # trained weights (≈290 greedy)
+    ├── eval_headless.py / Test.py / Main.py
+    └── README.md                    # details + attribution
 ```
 
 ---
