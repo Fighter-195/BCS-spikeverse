@@ -4,10 +4,8 @@ This folder contains the **convolutional** Deep-Q agent that actually masters Br
 strong model behind the SpikeVerse project's headline numbers. It's a Nature-DQN backbone with
 several **Rainbow** components layered on top.
 
-> **Credit:** this agent is the work of teammate **[@adianandgit](https://github.com/adianandgit/Atari-Breakout-SNNs)**
-> (group project). Included here under its original **MIT License** (see `LICENSE`). The only change
-> from the source is the `gym → gymnasium` import in `Atari_Environment.py` (required to run on
-> modern `ale-py`); all model logic is unchanged.
+> **Note:** the only change made to run this on a modern stack is the `gym → gymnasium` import in
+> `Atari_Environment.py` (required by current `ale-py` / NumPy 2); all model logic is unchanged.
 
 ---
 

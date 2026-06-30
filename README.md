@@ -19,10 +19,6 @@ This repository bundles three things:
 > The root **SNN** is the energy-efficient spiking conversion experiment (~1.13) — the
 > neuromorphic research angle, not the high-score model. The two are different architectures.
 
-> **Credit:** the `rainbow_dqn/` conv agent is teammate
-> **[@adianandgit](https://github.com/adianandgit/Atari-Breakout-SNNs)**'s work (group project),
-> included under its MIT License.
-
 ---
 
 ## 📑 Table of Contents
