@@ -1,31 +1,15 @@
 config = {
-    
-    "training_length": 4000,  # episodes
-    "mini_batch_size": 64,
-    "replay_memory_size": 200000,
-    "replay_memory_init_size": 50000,
-    "agent_history_length": 4,
-    "target_network_update_frequency": 10000,
-    "discount_factor": 0.99,  # gamma
-    "frame_skip": 3,
-    "action_repeat": 4,
-    "update_frequency": 4,
-    "update_rule": "RMSProp",
-    "learning_rate": 0.00001,
-    "gradient_momentum": 0.95,
-    "squared_gradient_momentum": 0.95,
-    "min_squared_gradient": 0.01,
-    "initial_epsilon": 1.0,
-    "final_epsilon": 0.1,
-    "final_exploration_step": 200000,
-    "refractory_period": 0,  # in ms
-    "threshold_voltage": -52,
-    "resting_voltage": -65,
-    "voltage_decay": 0.01,
-    "time_steps": 500,
-    "theta_plus": 0.05,
-    "theta_decay": 1e-7,
-    
-
-    "logging_interval":10
+    'learning_rate': 1e-4,  # Learning rate for the optimizer
+    'gamma': 0.99,  # Discount factor for future rewards
+    'buffer_size': 10000,  # Maximum size of the replay buffer
+    'batch_size': 16,  # Number of samples to draw from the buffer for each training step
+    'target_update_freq': 1000,  # Frequency (in training steps) to update the target network
+    'initial_replay_size': 5000,  # Minimum number of experiences in the buffer before training starts
+    'alpha': 0.7,  # PER prioritization
+    'beta_start': 0.4,  # PER importance sampling
+    'max_episodes': 1500,  # Maximum number of episodes to run
+    'target_score': 500,  # Mean score over 50 episodes
+    'logging_interval': 25,  # Logging interval
+    'sigma_init': 0.4,  # Initial noise for NoisyLinear layers
+    'n_step': 3,  # Number of steps for n-step Q-learning
 }

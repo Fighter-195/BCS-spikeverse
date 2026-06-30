@@ -1,52 +1,31 @@
-from Environment import BreakoutEnv
-from Agent import SNNAgent, ANNAgent
-import numpy as np
-from tqdm import tqdm
+from Agent_Implementation import AdvancedDQNAgent
+from Atari_Environment import AtariWrapper
 
-env = BreakoutEnv(rendering_mode='rgb_array',processing_method="Binary", save_sample_frames=False)
-state= env.reset()
+
+env = AtariWrapper(env_name="BreakoutNoFrameskip-v4", frame_skip=4,rendering_mode='human')
+state=env.reset()
 state_shape = state.shape
 action_size = env.action_space.n
-agent=SNNAgent(state_shape=state_shape,action_size=action_size)
-# agent.load_model(filepath="weights/binary_model_weights.pth")
-agent.load_ann_weights(filepath="weights/binary_model_weights.pth",scale_1=20,scale_2=100)
-agent.epsilon = 0.1
+agent=AdvancedDQNAgent(state_shape=state_shape,action_size=action_size)
+print("Loading Model")
+agent.load_model(filepath="model_weights.pth")
+print("Model Loaded")
+agent.epsilon=0.0
+agent.epsilon_min=0.0
 
-def plot_rewards(rewards, save=True, show=True, save_path='rewards_plot.png'):
-    import matplotlib.pyplot as plt
-    plt.hist(rewards, bins=range(16), edgecolor='black')  # bins from 0 to 15
-    plt.xlabel('Rewards')
-    plt.ylabel('Frequency')
-    plt.title('SNN Reward Frequency')
-    plt.xticks(range(0, 16))
-    plt.yticks(range(0, 101, 10))
-    plt.xlim(0, 15)
-    plt.ylim(0, 100)
 
-    if save:
-        plt.savefig(save_path)
-        print(f"Plot saved as '{save_path}'")
-    if show:
-        plt.show()
-
-print(f"Testing SNN with {agent.epsilon}% randomness")
-rewards=[]
-for i in tqdm(range(100)):
+for _ in range (5):
     state = env.reset()
+    done = False
     episode_reward = 0
-    while True:
+    while not done:
+        # Agent selects action using epsilon-greedy strategy.
         action = agent.select_action(state)
-        next_state, reward, done, _, info = env.step(action)
 
-        state = next_state
+        # Environment takes a step and returns the next state, reward, done flag, truncated flag, and info.
+        next_state, reward, done, truncated, info = env.step(action)
+
         episode_reward += reward
-        if done:
-            break
-    rewards.append(episode_reward)
-env.close()
-    
+        state = next_state
 
-print(f"Mean Reward: {np.mean(rewards)} | Max Reward: {max(rewards)}")
-plot_rewards(rewards,save=True, show=False, save_path='plots/SNN_binary_test_rewards.png')
-
-    
+    print(f"Episode Reward: {episode_reward}")
