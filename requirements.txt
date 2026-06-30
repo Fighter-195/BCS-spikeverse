@@ -1,0 +1,14 @@
+# Core deep-learning stack
+torch>=2.1            # CUDA build recommended (the SNN BPTT loop is GPU-heavy)
+snntorch>=0.7        # surrogate-gradient utilities for spiking layers
+
+# Reinforcement-learning environment (Atari Breakout)
+gymnasium>=0.29      # maintained successor to the unmaintained `gym`
+ale-py>=0.8          # Arcade Learning Environment; registers Atari games with Gymnasium
+# Atari ROMs ship with ale-py>=0.10. For older ale-py, run:  AutoROM --accept-license
+
+# Image / array / plotting utilities
+opencv-python>=4.7
+numpy>=1.24
+matplotlib>=3.6
+tqdm>=4.65
